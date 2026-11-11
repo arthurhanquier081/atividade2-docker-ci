@@ -20,7 +20,7 @@ def soma():
         b = int(request.args["b"])
     except (KeyError, ValueError):
         return jsonify(erro="Informe a e b como numeros inteiros. Exemplo: /soma?a=2&b=3"), 400
-    return jsonify(a=a, b=b, resultado=a - b)
+    return jsonify(a=a, b=b, resultado=a + b)
 
 
 if __name__ == "__main__":
