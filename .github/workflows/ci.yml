@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código do repositório
+        uses: actions/checkout@v6
+
+      - name: Construir a imagem Docker
+        run: docker build -t minha-api:${GITHUB_SHA} .
+
+      - name: Iniciar o contêiner
+        run: docker run -d --name minha-api -p 8000:8000 minha-api:${GITHUB_SHA}
+
+      - name: Aguardar a aplicação responder
+        run: |
+          for i in $(seq 1 30); do
+            if curl --silent --fail http://localhost:8000/health > /dev/null; then
+              echo "Aplicação respondeu na tentativa $i."
+              exit 0
+            fi
+            echo "Tentativa $i: a aplicação ainda não respondeu."
+            sleep 1
+          done
+          echo "A aplicação não respondeu a tempo."
+          docker logs minha-api
+          exit 1
+
+      - name: Instalar o Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Instalar as dependências dos testes
+        run: pip install -r requirements-dev.txt
+
+      - name: Executar os testes automatizados
+        run: pytest -v
+
+      - name: Mostrar os logs do contêiner (se algo falhou)
+        if: failure()
+        run: docker logs minha-api
+
+      - name: Remover o contêiner
+        if: always()
+        run: docker rm -f minha-api
