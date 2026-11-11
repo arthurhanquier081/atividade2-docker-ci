@@ -115,11 +115,7 @@ Se algum teste falhar, o `pytest` termina com código de saída diferente de zer
 
 | Situação | Link |
 | --- | --- |
-| Primeira execução do CI (passou) | 
-https://github.com/arthurhanquier081/atividade2-docker-ci/actions/runs/42928947675 | 
-| CI com o erro proposital (**falhou**) | 
-https://github.com/arthurhanquier081/atividade2-docker-ci/actions/runs/42930401898 |
-| CI depois da correção (**passou**) | 
-https://github.com/arthurhanquier081/atividade2-docker-ci/actions/runs/42931840616 |
-| Pull Request |
-https://github.com/arthurhanquier081/atividade2-docker-ci/pull/1 |
+| Primeira execução do CI (passou) | https://github.com/arthurhanquier081/atividade2-docker-ci/actions/runs/42928947675 |
+| CI com o erro proposital (**falhou**) | https://github.com/arthurhanquier081/atividade2-docker-ci/actions/runs/42930401898 |
+| CI depois da correção (**passou**) | https://github.com/arthurhanquier081/atividade2-docker-ci/actions/runs/42931840616 |
+| Pull Request | https://github.com/arthurhanquier081/atividade2-docker-ci/pull/1 |
